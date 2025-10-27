@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Zap, Globe, Radio } from 'lucide-react'
+import { Cpu, BookOpen, Zap, Globe, Radio } from 'lucide-react'
 import CyberButton from '@/components/CyberButton'
 import ChatMessages from '@/components/ChatMessages'
 import { useEffect, useState } from 'react'
@@ -107,7 +107,7 @@ export default function Home() {
               >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI</h3>
-                <ExternalLink className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
               </div>
               <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
                 ONOSENDAI is a web-based cyberspace explorer. Dive into nostr-powered virtual reality. Not for the faint of CPU.
@@ -142,10 +142,10 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-xl md:text-2xl font-bold text-purple-400">Cyberspace Protocol</h3>
-                  <Github className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <BookOpen className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" />
                 </div>
                 <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                  Read the thermodynamic cyberspace protocol specification.
+                  A permissionless metaverse powered by bitcoin-like proof-of-work. No blockchains, only nostr. Read the thermodynamic cyberspace protocol specification.
                 </p>
                 <div>
                   <CyberButton
