@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Straylight Café
 
-## Getting Started
+A cyberpunk-themed community hub for cyberspace enthusiasts, featuring ONOSENDAI - the cyberspace client for the one true metaverse.
 
-First, run the development server:
+## Features
 
+- **ONOSENDAI Integration**: Direct links to the in-browser cyberspace client
+- **Live Chat Messages**: Real-time display of messages from the cyberspace Nostr relay
+- **Community Links**: Quick access to GitHub, documentation, and community chat
+- **Bitcoin Lightning Donations**: Support development through Lightning payments
+- **Cyberpunk Aesthetic**: Inspired by William Gibson's Neuromancer
+
+## Technology Stack
+
+- Next.js 16 with App Router
+- TypeScript
+- Tailwind CSS
+- Framer Motion for animations
+- nostr-tools for Nostr relay integration
+- Static export for easy deployment
+
+## Development
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development Server
+```bash
+npm run dev
+```
+Visit http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+This site is configured for static export, making it easy to deploy via SFTP.
 
-To learn more about Next.js, take a look at the following resources:
+### Build for Deployment
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Deploy via SFTP
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+After building, the static files will be in the `out` directory. Upload the entire contents of the `out` directory to your web server:
 
-## Deploy on Vercel
+```bash
+# Example using sftp
+sftp user@straylight.cafe
+> put -r out/* /path/to/public_html/
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Or using any SFTP client:
+1. Connect to your server
+2. Navigate to your web root directory
+3. Upload all files from the `out` folder
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Alternative Deployment Methods
+
+The static export can be deployed to any static hosting service:
+- Nginx/Apache web server
+- Cloudflare Pages
+- GitHub Pages
+- Netlify (drag & drop the `out` folder)
+- Any static file host
+
+## Configuration
+
+### Environment Variables
+No environment variables required for basic operation.
+
+### Customization
+
+- **Colors**: Edit CSS variables in `app/globals.css`
+- **Content**: Modify sections in `app/page.tsx`
+- **Chat Relay**: Update relay URL in `components/ChatMessages.tsx`
+
+## Links
+
+- **ONOSENDAI**: https://onosendai.tech
+- **GitHub**: https://github.com/arkin0x/ONOSENDAI
+- **Documentation**: https://cyberspace.international
+- **Community Chat**: https://app.flotilla.social/join?r=cyberspace.nostr1.com
+
+## License
+
+MIT License - See LICENSE file for details
+
+## Credits
+
+Inspired by William Gibson's Neuromancer and the concept of cyberspace.
