@@ -60,6 +60,11 @@ export default function ChatMessages() {
     if (npub.length <= 16) return npub
     return `${npub.slice(0, 8)}...${npub.slice(-4)}`
   }
+  
+  const truncateMessage = (message: string, maxLength: number = 200) => {
+    if (message.length <= maxLength) return message
+    return `${message.slice(0, maxLength).trim()}...`
+  }
 
   return (
     <div className="w-full">
@@ -112,7 +117,7 @@ export default function ChatMessages() {
                     </span>
                   </div>
                   <p className="text-sm md:text-base text-gray-200 break-words leading-relaxed">
-                    {msg.content}
+                    {truncateMessage(msg.content)}
                   </p>
                 </motion.div>
               ))}
