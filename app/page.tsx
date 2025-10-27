@@ -92,7 +92,7 @@ export default function Home() {
               className="text-2xl md:text-3xl font-bold mb-6 font-['Orbitron']"
             >
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                EXPLORE THE NETWORK
+                EXPLORE
               </span>
             </motion.h2>
             
@@ -110,9 +110,9 @@ export default function Home() {
                 <ExternalLink className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
               </div>
               <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                The cyberspace client for the one true metaverse. Dive into nostr-powered virtual reality.
+                ONOSENDAI is a web-based cyberspace explorer. Dive into nostr-powered virtual reality. Not for the faint of CPU.
               </p>
-              <div>
+              <div className="flex flex-col sm:flex-row gap-3">
                 <CyberButton
                   href="https://onosendai.tech"
                   variant="secondary"
@@ -121,25 +121,6 @@ export default function Home() {
                 >
                   Enter Cyberspace
                 </CyberButton>
-              </div>
-            </motion.div>
-
-              {/* GitHub Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="group relative border border-purple-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-purple-400/60 transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] flex flex-col"
-              >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl md:text-2xl font-bold text-purple-400">Source Code</h3>
-                <Github className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-              </div>
-              <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                Contribute to ONOSENDAI development. Open source and community driven.
-              </p>
-              <div>
                 <CyberButton
                   href="https://github.com/arkin0x/ONOSENDAI"
                   variant="accent"
@@ -150,6 +131,33 @@ export default function Home() {
                 </CyberButton>
               </div>
             </motion.div>
+
+              {/* Cyberspace Protocol Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="group relative border border-purple-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-purple-400/60 transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] flex flex-col"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-400">Cyberspace Protocol</h3>
+                  <Github className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                </div>
+                <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                  Read the thermodynamic cyberspace protocol specification.
+                </p>
+                <div>
+                  <CyberButton
+                    href="https://github.com/arkin0x/cyberspace"
+                    variant="accent"
+                    size="sm"
+                    external
+                  >
+                    View Specification
+                  </CyberButton>
+                </div>
+              </motion.div>
 
               {/* Cyberspace International Card */}
               <motion.div
@@ -178,13 +186,13 @@ export default function Home() {
               </div>
               </motion.div>
               
-              {/* Join Conversation Button */}
+              {/* Join Chat Section */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
-                className="text-center"
+                className="text-center border border-cyan-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
               >
                 <CyberButton
                   href="https://app.flotilla.social/join?r=cyberspace.nostr1.com"
@@ -192,8 +200,11 @@ export default function Home() {
                   size="md"
                   external
                 >
-                  Join the Conversation
+                  Join Chat
                 </CyberButton>
+                <p className="text-xs md:text-sm text-gray-400 mt-3">
+                  Join or sign-in with nostr instantly
+                </p>
               </motion.div>
             </div>
           </div>
