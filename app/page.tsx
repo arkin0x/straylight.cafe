@@ -103,6 +103,17 @@ export default function Home() {
               <p className="text-xs md:text-sm text-gray-400 mt-3">
                 Join or sign-in with nostr instantly
               </p>
+              <p className="text-xs text-gray-500 mt-2">
+                Powered by{' '}
+                <a 
+                  href="https://flotilla.social" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 hover:text-cyan-300 transition-colors underline"
+                >
+                  flotilla.social
+                </a>
+              </p>
             </motion.div>
           </div>
           
