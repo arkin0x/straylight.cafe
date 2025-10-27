@@ -49,6 +49,7 @@ export default function Home() {
             <p className="text-lg md:text-xl lg:text-2xl text-gray-300 font-light mb-4">
               Welcome to the cyberspace community hub
             </p>
+            {/* Commented out Launch ONOSENDAI button section
             <div className="flex flex-col sm:flex-row gap-3">
               <CyberButton
                 href="https://onosendai.tech"
@@ -65,6 +66,7 @@ export default function Home() {
                 Enter the one true metaverse
               </p>
             </div>
+            */}
           </motion.div>
         </div>
       </header>
