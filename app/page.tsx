@@ -74,14 +74,37 @@ export default function Home() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           
           {/* Left Column - Chat Messages */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <ChatMessages />
-          </motion.div>
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <ChatMessages />
+            </motion.div>
+            
+            {/* Join Chat Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-6 text-center border border-cyan-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
+            >
+              <CyberButton
+                href="https://app.flotilla.social/join?r=cyberspace.nostr1.com"
+                variant="secondary"
+                size="md"
+                external
+              >
+                Join Chat
+              </CyberButton>
+              <p className="text-xs md:text-sm text-gray-400 mt-3">
+                Join or sign-in with nostr instantly
+              </p>
+            </motion.div>
+          </div>
           
           {/* Right Column - Explore Links */}
           <div>
@@ -185,27 +208,6 @@ export default function Home() {
                 </CyberButton>
               </div>
               </motion.div>
-              
-              {/* Join Chat Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="text-center border border-cyan-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
-              >
-                <CyberButton
-                  href="https://app.flotilla.social/join?r=cyberspace.nostr1.com"
-                  variant="secondary"
-                  size="md"
-                  external
-                >
-                  Join Chat
-                </CyberButton>
-                <p className="text-xs md:text-sm text-gray-400 mt-3">
-                  Join or sign-in with nostr instantly
-                </p>
-              </motion.div>
             </div>
           </div>
         </div>
@@ -227,7 +229,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-sm md:text-base text-gray-300 mb-6">
-              Help us build the future of cyberspace
+              The only metaverse that matters is the one that nobody can control. Support open protocol and software development and build the future of cyberspace.
             </p>
             <div className="inline-block border border-yellow-500/50 rounded-lg p-3 md:p-4 bg-black/70">
               <p className="text-xs md:text-sm text-gray-400 mb-2">Bitcoin Lightning</p>
