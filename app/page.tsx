@@ -1,55 +1,67 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Cpu, BookOpen, Zap, Globe, Radio } from 'lucide-react'
+import { Cpu, BookOpen, Zap, Globe, Terminal, Rocket, Bot, Lock, Compass, Sparkles } from 'lucide-react'
 import CyberButton from '@/components/CyberButton'
 import ChatMessages from '@/components/ChatMessages'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const [copiedCliInstall, setCopiedCliInstall] = useState(false)
+  const cliCloneCommand = 'git clone https://github.com/arkin0x/cyberspace-cli.git && cd cyberspace-cli'
+  const cliInstallCommands = `${cliCloneCommand}
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip
+pip install -e .`
 
+  const handleCopyCliInstall = async () => {
+    try {
+      await navigator.clipboard.writeText(cliInstallCommands)
+      setCopiedCliInstall(true)
+      window.setTimeout(() => setCopiedCliInstall(false), 1600)
+    } catch {
+      setCopiedCliInstall(false)
+    }
+  }
   return (
     <main className="min-h-screen relative overflow-hidden">
       {/* Background effects */}
       <div className="fixed inset-0 cyber-grid opacity-20" />
       <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/20" />
-      
+
       {/* Content wrapper for centering */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-      
-      {/* Header Section */}
-      <header className="py-8 md:py-12">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -20 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Orbitron'] tracking-wide">
-              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent static-glow">
-                STRAYLIGHT
-              </span>
-              <span className="block text-xl sm:text-2xl md:text-3xl mt-1 text-cyan-400 glow-sm">
-                CAFÉ
-              </span>
-            </h1>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:text-right"
-          >
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 font-light mb-4">
-              Welcome to the cyberspace community hub
-            </p>
-            {/* Commented out Launch ONOSENDAI button section
+
+        {/* Header Section */}
+        <header className="py-8 md:py-12">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Orbitron'] tracking-wide">
+                <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent static-glow">
+                  STRAYLIGHT
+                </span>
+                <span className="block text-xl sm:text-2xl md:text-3xl mt-1 text-cyan-400 glow-sm">
+                  CAFÉ
+                </span>
+              </h1>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:text-right"
+            >
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-300 font-light mb-4">
+                Welcome to the cyberspace community hub
+              </p>
+              {/* Commented out Launch ONOSENDAI button section
             <div className="flex flex-col sm:flex-row gap-3">
               <CyberButton
                 href="https://onosendai.tech"
@@ -67,202 +79,354 @@ export default function Home() {
               </p>
             </div>
             */}
-          </motion.div>
-        </div>
-      </header>
-      
-      {/* Main 2-Column Layout */}
-      <section className="py-12 md:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          
-          {/* Left Column - Chat Messages */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <ChatMessages />
-            </motion.div>
-            
-            {/* Join Chat Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="mt-6 text-center border border-cyan-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
-            >
-              <CyberButton
-                href="https://app.flotilla.social/join?r=cyberspace.nostr1.com"
-                variant="secondary"
-                size="md"
-                external
-              >
-                Join Chat
-              </CyberButton>
-              <p className="text-xs md:text-sm text-gray-400 mt-3">
-                Join or sign-in with nostr instantly
-              </p>
-              <p className="text-xs text-gray-500 mt-2">
-                Powered by{' '}
-                <a 
-                  href="https://flotilla.social" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors underline"
-                >
-                  flotilla.social
-                </a>
-              </p>
             </motion.div>
           </div>
-          
-          {/* Right Column - Explore Links */}
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-2xl md:text-3xl font-bold mb-6 font-['Orbitron']"
-            >
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                EXPLORE
-              </span>
-            </motion.h2>
-            
-            <div className="flex flex-col gap-6">
-              {/* ONOSENDAI Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
-              >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI</h3>
-                <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-              </div>
-              <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                ONOSENDAI is a web-based cyberspace explorer. Dive into nostr-powered virtual reality. Not for the faint of CPU.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <CyberButton
-                  href="https://onosendai.tech"
-                  variant="secondary"
-                  size="sm"
-                  external
-                >
-                  Enter Cyberspace
-                </CyberButton>
-                <CyberButton
-                  href="https://github.com/arkin0x/ONOSENDAI"
-                  variant="accent"
-                  size="sm"
-                  external
-                >
-                  View on GitHub
-                </CyberButton>
-              </div>
-            </motion.div>
+        </header>
 
-              {/* Cyberspace Protocol Card */}
+        {/* Main 2-Column Layout */}
+        <section className="py-12 md:py-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Left Column - Community + Archive */}
+            <div>
+              {/* Cyberspace Intro */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="group relative border border-purple-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-purple-400/60 transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] flex flex-col"
+                transition={{ delay: 0.05 }}
+                className="border border-violet-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-purple-400">Cyberspace Protocol</h3>
-                  <BookOpen className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-                </div>
-                <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                  A permissionless metaverse powered by bitcoin-like proof-of-work. No blockchains, only nostr. Read the thermodynamic cyberspace protocol specification.
+                <h2 className="text-xl md:text-2xl font-bold mb-3 font-['Orbitron']">
+                  <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+                    WELCOME TO CYBERSPACE
+                  </span>
+                </h2>
+                <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+                  Cyberspace is a permissionless, thermodynamic spatial protocol that uses math to impose locality on a spaceless digital system. It can be used for:
                 </p>
-                <div>
-                  <CyberButton
-                    href="https://github.com/arkin0x/cyberspace"
-                    variant="accent"
-                    size="sm"
-                    external
-                  >
-                    View Specification
-                  </CyberButton>
+                <ul className="text-sm md:text-base text-gray-300 my-3 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Bot className="w-4 h-4 text-violet-400 mt-1 flex-shrink-0" />
+                    <span>AI embodiment and single-presence restriction</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Lock className="w-4 h-4 text-violet-400 mt-1 flex-shrink-0" />
+                    <span>trustlessly restricting data access by location</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Compass className="w-4 h-4 text-violet-400 mt-1 flex-shrink-0" />
+                    <span>open and interoperable augmented reality layers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Sparkles className="w-4 h-4 text-violet-400 mt-1 flex-shrink-0" />
+                    <span>and whatever else you imagine!</span>
+                  </li>
+                </ul>
+                <p className="text-sm md:text-base text-gray-300 leading-relaxed gap-2 mb-3">
+                  Identity is anchored to location, movement requires verifiable work via Cantor pairing trees, and content is locked to regions discoverable only through computational presence, all encoded as Nostr events.</p>
+
+                <div className="border border-purple-500/25 rounded-lg p-4 mt-8 bg-black/40">
+                  <p className="text-xs text-gray-300 leading-relaxed gap-2">
+                    The cyberspace protocol is the realization of the original vision of a metaverse as a single, shared, persistent, and interoperable virtual space that is not owned or controlled by any entity. Heavily inspired by Neuromancer, Snow Crash, and other cyberpunk classics, as well as the vibrant history of open metaverse projects and communities that have come before, cyberspace is a new kind of digital commons built on first principles of thermodynamics, decentralization, open standards, and user sovereignty.
+                  </p>
                 </div>
               </motion.div>
 
-              {/* Cyberspace International Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="group relative border border-pink-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-pink-400/60 transition-all hover:shadow-[0_0_30px_rgba(236,72,153,0.3)] flex flex-col"
+                transition={{ delay: 0.1 }}
+                className="mt-6"
               >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl md:text-2xl font-bold text-pink-400">Learn More</h3>
-                <Globe className="w-5 h-5 text-pink-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-              </div>
-              <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                Educational resources and documentation for the cyberspace protocol.
-              </p>
-              <div>
-                <CyberButton
-                  href="https://cyberspace.international"
-                  variant="primary"
-                  size="sm"
-                  external
-                >
-                  Documentation
-                </CyberButton>
-              </div>
+                <ChatMessages />
               </motion.div>
+
+              <motion.h2
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="text-2xl md:text-3xl font-bold mt-10 mb-6 font-['Orbitron']"
+              >
+                <span className="bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent">
+                  ARCHIVE
+                </span>
+              </motion.h2>
+
+              <div className="flex flex-col gap-6">
+                {/* ONOSENDAI Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI (Hiatus)</h3>
+                    <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                    ONOSENDAI is currently disabled while the cyberspace v2 is being developed and will be rebuilt to the new spec.
+                  </p>
+                  <div>
+                    <CyberButton
+                      href="https://github.com/arkin0x/ONOSENDAI"
+                      variant="accent"
+                      size="sm"
+                      external
+                    >
+                      View Repo
+                    </CyberButton>
+                  </div>
+                </motion.div>
+
+                {/* Construct Miner Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="group relative border border-amber-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-amber-400/60 transition-all hover:shadow-[0_0_30px_rgba(251,191,36,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-amber-400">Construct Miner (Deprecated)</h3>
+                    <Cpu className="w-5 h-5 text-amber-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                    Construct Miner is deprecated due to the protocol upgrade to v2, but it remains available for historical reference.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <CyberButton
+                      href="https://construct.onosendai.tech"
+                      variant="secondary"
+                      size="sm"
+                      external
+                    >
+                      Open Construct
+                    </CyberButton>
+                    <CyberButton
+                      href="https://github.com/arkin0x/construct-miner"
+                      variant="accent"
+                      size="sm"
+                      external
+                    >
+                      View on GitHub
+                    </CyberButton>
+                  </div>
+                </motion.div>
+
+              </div>
+            </div>
+
+            {/* Right Column - Explore Links */}
+            <div>
+              <motion.h2
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="text-2xl md:text-3xl font-bold mb-6 font-['Orbitron']"
+              >
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  EXPLORE
+                </span>
+              </motion.h2>
+
+              <div className="flex flex-col gap-6">
+                {/* Cyberspace Protocol Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="group relative border border-purple-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-purple-400/60 transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-purple-400">Cyberspace Protocol</h3>
+                    <BookOpen className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-4 leading-relaxed">
+                    Cyberspace Protocol v2 is a major overhaul introducing new native capabilities like location-based encryption and discrete movement mechanics.
+                  </p>
+                  <div>
+                    <CyberButton
+                      href="https://github.com/arkin0x/cyberspace"
+                      variant="accent"
+                      size="sm"
+                      external
+                    >
+                      View Specification
+                    </CyberButton>
+                  </div>
+                  <div className="border border-purple-500/25 rounded-lg p-4 mt-8 bg-black/40">
+                    <p className="text-xs uppercase tracking-wider text-purple-300 mb-2">DECKs</p>
+                    <p className="text-xs md:text-sm text-gray-300 mb-4 leading-relaxed">
+                      Explore extension documents for the protocol, including hyperjumps and other capability proposals.
+                    </p>
+                    <CyberButton
+                      href="https://github.com/arkin0x/cyberspace/tree/master/decks"
+                      variant="accent"
+                      size="sm"
+                      external
+                    >
+                      Browse DECKs
+                    </CyberButton>
+                  </div>
+                </motion.div>
+
+                {/* cyberspace-cli Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-cyan-400">cyberspace-cli</h3>
+                    <Terminal className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-6 leading-relaxed">
+                    The Python cyberspace-cli is the new reference implementation for Cyberspace Protocol v2.
+                  </p>
+                  <div className="mb-6">
+                    <CyberButton
+                      href="https://github.com/arkin0x/cyberspace-cli"
+                      variant="secondary"
+                      size="sm"
+                      external
+                    >
+                      View on GitHub
+                    </CyberButton>
+                  </div>
+                  <div className="border border-cyan-500/25 rounded-lg p-4 bg-black/60">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="text-xs md:text-sm font-mono text-cyan-300 break-all">{cliCloneCommand}</p>
+                      <button
+                        type="button"
+                        onClick={handleCopyCliInstall}
+                        className="px-3 py-1.5 text-xs uppercase tracking-wider text-cyan-200 border border-cyan-500/40 rounded hover:border-cyan-300 hover:text-cyan-100 transition-colors"
+                      >
+                        {copiedCliInstall ? 'Copied' : 'Copy'}
+                      </button>
+                    </div>
+                    <pre className="overflow-x-auto">
+                      <code className="text-xs md:text-sm font-mono text-cyan-200 leading-relaxed">
+                        {`python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip
+pip install -e .`}
+                      </code>
+                    </pre>
+                  </div>
+                </motion.div>
+
+                {/* Hyperjump Explorer Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="group relative border border-blue-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-blue-400/60 transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-blue-400">Hyperjump Explorer</h3>
+                    <Rocket className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                    Explore bitcoin blocks projected into thermodynamic cyberspace by merkle root in an interactive 3D explorer. Hyperjumps are DECK-1 events that enable fast travel between anchored blocks.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <CyberButton
+                      href="https://hyperjump.onosendai.tech"
+                      variant="secondary"
+                      size="sm"
+                      external
+                    >
+                      Open Explorer
+                    </CyberButton>
+                    <CyberButton
+                      href="https://github.com/arkin0x/cyberspace/blob/master/decks/DECK-0001-hyperjumps.md"
+                      variant="accent"
+                      size="sm"
+                      external
+                    >
+                      Read DECK-1
+                    </CyberButton>
+                  </div>
+                </motion.div>
+
+                {/* Learn More Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  className="group relative border border-pink-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-pink-400/60 transition-all hover:shadow-[0_0_30px_rgba(236,72,153,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-pink-400">Learn More</h3>
+                    <Globe className="w-5 h-5 text-pink-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-3 leading-relaxed">
+                    cyberspace.international is under construction and coming soon. The site is not live yet.
+                  </p>
+                  <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                    Read the foundational essay: Nostr: The Dawn of Cyberspace.
+                  </p>
+                  <div>
+                    <CyberButton
+                      href="https://habla.news/a/naddr1qvzqqqr4gupzp68dx7vvdlltl7sg2qdv8838ze3tl5tq76y0jnz966fdsana6dz6qq25ce6ff3ny7mm40ff42hmgfue52mn4244ngch7r2a"
+                      variant="primary"
+                      size="sm"
+                      external
+                    >
+                      Read the Article
+                    </CyberButton>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Donation Section */}
-      <section className="py-12 md:py-16 pb-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="border border-yellow-500/30 rounded-lg p-8 md:p-12 bg-black/50 backdrop-blur-sm"
-          >
-            <Zap className="w-10 h-10 md:w-12 md:h-12 text-yellow-400 mx-auto mb-4" />
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 font-['Orbitron']">
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                Support Development
-              </span>
-            </h2>
-            <p className="text-sm md:text-base text-gray-300 mb-6">
-              The only metaverse that matters is the one that nobody can control. Support open protocol and software development and build the future of cyberspace.
-            </p>
-            <div className="inline-block border border-yellow-500/50 rounded-lg p-3 md:p-4 bg-black/70">
-              <p className="text-xs md:text-sm text-gray-400 mb-2">Bitcoin Lightning</p>
-              <p className="font-mono text-yellow-400 text-sm md:text-lg break-all">
-                arkin0x@strike.me
+        {/* Donation Section */}
+        <section className="py-12 md:py-16 pb-24">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="border border-yellow-500/30 rounded-lg p-8 md:p-12 bg-black/50 backdrop-blur-sm"
+            >
+              <Zap className="w-10 h-10 md:w-12 md:h-12 text-yellow-400 mx-auto mb-4" />
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 font-['Orbitron']">
+                <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                  Support Development
+                </span>
+              </h2>
+              <p className="text-sm md:text-base text-gray-300 mb-6">
+                The only metaverse that matters is the one that nobody can control. Support open protocol and software development and build the future of cyberspace.
               </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+              <div className="inline-block border border-yellow-500/50 rounded-lg p-3 md:p-4 bg-black/70">
+                <p className="text-xs md:text-sm text-gray-400 mb-2">Bitcoin Lightning</p>
+                <p className="font-mono text-yellow-400 text-sm md:text-lg break-all">
+                  arkin0x@strike.me
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-cyan-500/20">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-400 text-sm">
-            © 2025 Straylight Café
-          </p>
-        </div>
-      </footer>
-      </div> {/* End content wrapper */}
-    </main>
+        {/* Footer */}
+        <footer className="py-8 border-t border-cyan-500/20">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-gray-400 text-sm">
+              © 2026 Straylight Café
+            </p>
+          </div>
+        </footer>
+      </div > {/* End content wrapper */}
+    </main >
   )
 }

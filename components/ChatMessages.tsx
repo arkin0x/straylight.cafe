@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { SimplePool, Event } from 'nostr-tools'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, RefreshCw } from 'lucide-react'
+import CyberButton from './CyberButton'
 
 export default function ChatMessages() {
   const [messages, setMessages] = useState<Event[]>([])
@@ -13,11 +14,11 @@ export default function ChatMessages() {
   const fetchMessages = async () => {
     setLoading(true)
     setError(null)
-    
+
     try {
       const pool = new SimplePool()
       const relay = 'wss://cyberspace.nostr1.com'
-      
+
       const events = await pool.querySync(
         [relay],
         {
@@ -25,7 +26,7 @@ export default function ChatMessages() {
           limit: 10,
         }
       )
-      
+
       // Sort by created_at timestamp (oldest first, so newest appears at bottom)
       const sortedEvents = events.sort((a, b) => a.created_at - b.created_at)
       setMessages(sortedEvents.slice(-5)) // Show only 5 most recent
@@ -49,7 +50,7 @@ export default function ChatMessages() {
     const now = new Date()
     const diffMs = now.getTime() - date.getTime()
     const diffMins = Math.floor(diffMs / 60000)
-    
+
     if (diffMins < 1) return 'just now'
     if (diffMins < 60) return `${diffMins}m ago`
     if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`
@@ -60,7 +61,7 @@ export default function ChatMessages() {
     if (npub.length <= 16) return npub
     return `${npub.slice(0, 8)}...${npub.slice(-4)}`
   }
-  
+
   const truncateMessage = (message: string, maxLength: number = 200) => {
     if (message.length <= maxLength) return message
     return `${message.slice(0, maxLength).trim()}...`
@@ -71,9 +72,14 @@ export default function ChatMessages() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 md:gap-3">
           <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
-          <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Cyberspace Chatter
-          </span>
+          <div className="flex-col">
+            <span className="block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              Cyberspace Chatter
+            </span>
+            <span className="block text-xs text-gray-500">
+              from official relay wss://cyberspace.nostr1.com
+            </span>
+          </div>
         </h2>
         <button
           onClick={fetchMessages}
@@ -124,7 +130,39 @@ export default function ChatMessages() {
             </div>
           </AnimatePresence>
         )}
+        {/* Join Chat Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-6 text-center border border-cyan-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
+        >
+          <CyberButton
+            href="https://app.flotilla.social/join?r=cyberspace.nostr1.com"
+            variant="secondary"
+            size="md"
+            external
+          >
+            Join Chat
+          </CyberButton>
+          <p className="text-xs md:text-sm text-gray-400 mt-3">
+            Join or sign-in with nostr instantly
+          </p>
+          <p className="text-xs text-gray-500 mt-2">
+            Powered by{' '}
+            <a
+              href="https://flotilla.social"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors underline"
+            >
+              flotilla.social
+            </a>
+          </p>
+        </motion.div>
       </div>
+
     </div>
   )
 }
