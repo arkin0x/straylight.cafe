@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Cpu, BookOpen, Zap, Globe, Terminal, Rocket, Bot, Lock, Compass, Sparkles } from 'lucide-react'
+import { Cpu, BookOpen, Zap, Globe, Terminal, Rocket, Bot, Lock, Compass, Sparkles, Satellite } from 'lucide-react'
 import CyberButton from '@/components/CyberButton'
 import ChatMessages from '@/components/ChatMessages'
 import { useState } from 'react'
@@ -32,7 +32,7 @@ pip install -e .`
       <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/20" />
 
       {/* Content wrapper for centering */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
         {/* Header Section */}
         <header className="py-8 md:py-12">
@@ -58,8 +58,8 @@ pip install -e .`
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:text-right"
             >
-              <p className="text-lg md:text-xl lg:text-2xl text-gray-300 font-light mb-4">
-                Welcome to the cyberspace community hub
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-400 font-light mb-4">
+                The cyberspace community hub <Satellite className="w-10 h-10 text-gray-400 inline-block ml-2 animate-pulse" />
               </p>
               {/* Commented out Launch ONOSENDAI button section
             <div className="flex flex-col sm:flex-row gap-3">
@@ -83,18 +83,19 @@ pip install -e .`
           </div>
         </header>
 
-        {/* Main 2-Column Layout */}
-        <section className="py-12 md:py-16">
+        {/* Main Layout */}
+        <section className="py-4 md:py-4 pt-2">
+          {/* Intro/Chat + Explore row */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Left Column - Community + Archive */}
-            <div>
+            {/* Left Column - Intro + Chat */}
+            <div className="min-w-0 order-1">
               {/* Cyberspace Intro */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.05 }}
-                className="border border-violet-500/30 rounded-lg p-6 bg-black/50 backdrop-blur-sm"
+                className="relative border border-purple-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-purple-400/60 transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] flex flex-col"
               >
                 <h2 className="text-xl md:text-2xl font-bold mb-3 font-['Orbitron']">
                   <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
@@ -104,7 +105,7 @@ pip install -e .`
                 <p className="text-sm md:text-base text-gray-300 leading-relaxed">
                   Cyberspace is a permissionless, thermodynamic spatial protocol that uses math to impose locality on a spaceless digital system. It can be used for:
                 </p>
-                <ul className="text-sm md:text-base text-gray-300 my-3 space-y-2">
+                <ul className="text-sm md:text-base text-gray-200 my-3 space-y-2">
                   <li className="flex items-start gap-2">
                     <Bot className="w-4 h-4 text-violet-400 mt-1 flex-shrink-0" />
                     <span>AI embodiment and single-presence restriction</span>
@@ -122,12 +123,22 @@ pip install -e .`
                     <span>and whatever else you imagine!</span>
                   </li>
                 </ul>
-                <p className="text-sm md:text-base text-gray-300 leading-relaxed gap-2 mb-3">
-                  Identity is anchored to location, movement requires verifiable work via Cantor pairing trees, and content is locked to regions discoverable only through computational presence, all encoded as Nostr events.</p>
-
+                <div className="my-6">
+                  <CyberButton
+                    href="https://github.com/arkin0x/cyberspace"
+                    variant="accent"
+                    size="sm"
+                    external
+                  >
+                    View Specification
+                  </CyberButton>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed gap-2 my-3">
+                  Identity is anchored to location, movement requires verifiable work via Cantor pairing trees, and content is locked to regions discoverable only through computational presence, all encoded as Nostr events.
+                </p>
                 <div className="border border-purple-500/25 rounded-lg p-4 mt-8 bg-black/40">
                   <p className="text-xs text-gray-300 leading-relaxed gap-2">
-                    The cyberspace protocol is the realization of the original vision of a metaverse as a single, shared, persistent, and interoperable virtual space that is not owned or controlled by any entity. Heavily inspired by Neuromancer, Snow Crash, and other cyberpunk classics, as well as the vibrant history of open metaverse projects and communities that have come before, cyberspace is a new kind of digital commons built on first principles of thermodynamics, decentralization, open standards, and user sovereignty.
+                    <BookOpen className="w-10 h-10 inline align-bottom" /> The cyberspace protocol is the realization of the original vision of a metaverse as a single, shared, persistent, and interoperable virtual space that is not owned or controlled by any entity. Heavily inspired by Neuromancer, Snow Crash, and other cyberpunk classics, as well as the vibrant history of open metaverse projects and communities that have come before, cyberspace is a new kind of digital commons built on first principles of thermodynamics, decentralization, open standards, and user sovereignty.
                   </p>
                 </div>
               </motion.div>
@@ -141,86 +152,10 @@ pip install -e .`
               >
                 <ChatMessages />
               </motion.div>
-
-              <motion.h2
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="text-2xl md:text-3xl font-bold mt-10 mb-6 font-['Orbitron']"
-              >
-                <span className="bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent">
-                  ARCHIVE
-                </span>
-              </motion.h2>
-
-              <div className="flex flex-col gap-6">
-                {/* ONOSENDAI Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI (Hiatus)</h3>
-                    <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-                  </div>
-                  <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                    ONOSENDAI is currently disabled while the cyberspace v2 is being developed and will be rebuilt to the new spec.
-                  </p>
-                  <div>
-                    <CyberButton
-                      href="https://github.com/arkin0x/ONOSENDAI"
-                      variant="accent"
-                      size="sm"
-                      external
-                    >
-                      View Repo
-                    </CyberButton>
-                  </div>
-                </motion.div>
-
-                {/* Construct Miner Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                  className="group relative border border-amber-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-amber-400/60 transition-all hover:shadow-[0_0_30px_rgba(251,191,36,0.3)] flex flex-col"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl md:text-2xl font-bold text-amber-400">Construct Miner (Deprecated)</h3>
-                    <Cpu className="w-5 h-5 text-amber-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-                  </div>
-                  <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                    Construct Miner is deprecated due to the protocol upgrade to v2, but it remains available for historical reference.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <CyberButton
-                      href="https://construct.onosendai.tech"
-                      variant="secondary"
-                      size="sm"
-                      external
-                    >
-                      Open Construct
-                    </CyberButton>
-                    <CyberButton
-                      href="https://github.com/arkin0x/construct-miner"
-                      variant="accent"
-                      size="sm"
-                      external
-                    >
-                      View on GitHub
-                    </CyberButton>
-                  </div>
-                </motion.div>
-
-              </div>
             </div>
 
-            {/* Right Column - Explore Links */}
-            <div>
+            {/* Right Column - Explore (shows before Archive on mobile) */}
+            <div className="min-w-0 order-2">
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -300,18 +235,18 @@ pip install -e .`
                     </CyberButton>
                   </div>
                   <div className="border border-cyan-500/25 rounded-lg p-4 bg-black/60">
-                    <div className="flex items-center justify-between gap-3 mb-2">
-                      <p className="text-xs md:text-sm font-mono text-cyan-300 break-all">{cliCloneCommand}</p>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
+                      <p className="w-full min-w-0 sm:flex-1 text-xs md:text-sm font-mono text-cyan-300 break-all">{cliCloneCommand}</p>
                       <button
                         type="button"
                         onClick={handleCopyCliInstall}
-                        className="px-3 py-1.5 text-xs uppercase tracking-wider text-cyan-200 border border-cyan-500/40 rounded hover:border-cyan-300 hover:text-cyan-100 transition-colors"
+                        className="self-start sm:self-auto shrink-0 px-3 py-1.5 text-xs uppercase tracking-wider text-cyan-200 border border-cyan-500/40 rounded hover:border-cyan-300 hover:text-cyan-100 transition-colors"
                       >
                         {copiedCliInstall ? 'Copied' : 'Copy'}
                       </button>
                     </div>
-                    <pre className="overflow-x-auto">
-                      <code className="text-xs md:text-sm font-mono text-cyan-200 leading-relaxed">
+                    <pre className="max-w-full overflow-x-auto">
+                      <code className="text-xs md:text-sm font-mono text-cyan-200 leading-relaxed break-all">
                         {`python3 -m venv .venv
 source .venv/bin/activate
 pip install -U pip
@@ -386,6 +321,84 @@ pip install -e .`}
                   </div>
                 </motion.div>
               </div>
+            </div>
+          </div>
+
+          {/* Archive (full width below intro/chat + explore) */}
+          <div className="mt-10">
+            <motion.h2
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl font-bold mb-6 font-['Orbitron']"
+            >
+              <span className="bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent">
+                ARCHIVE
+              </span>
+            </motion.h2>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* ONOSENDAI Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI (Hiatus)</h3>
+                  <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                </div>
+                <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                  ONOSENDAI is currently disabled while the cyberspace v2 is being developed and will be rebuilt to the new spec.
+                </p>
+                <div>
+                  <CyberButton
+                    href="https://github.com/arkin0x/ONOSENDAI"
+                    variant="accent"
+                    size="sm"
+                    external
+                  >
+                    View Repo
+                  </CyberButton>
+                </div>
+              </motion.div>
+
+              {/* Construct Miner Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="group relative border border-amber-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-amber-400/60 transition-all hover:shadow-[0_0_30px_rgba(251,191,36,0.3)] flex flex-col"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-amber-400">Construct Miner (Deprecated)</h3>
+                  <Cpu className="w-5 h-5 text-amber-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                </div>
+                <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
+                  Construct Miner is deprecated due to the protocol upgrade to v2, but it remains available for historical reference.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <CyberButton
+                    href="https://construct.onosendai.tech"
+                    variant="secondary"
+                    size="sm"
+                    external
+                  >
+                    Open Construct
+                  </CyberButton>
+                  <CyberButton
+                    href="https://github.com/arkin0x/construct-miner"
+                    variant="accent"
+                    size="sm"
+                    external
+                  >
+                    View on GitHub
+                  </CyberButton>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>

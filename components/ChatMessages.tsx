@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, RefreshCw } from 'lucide-react'
 import CyberButton from './CyberButton'
 
+const ARKINOX = 'e8ed3798c6ffebffa08501ac39e271662bfd160f688f94c45d692d8767dd345a'
+
 export default function ChatMessages() {
   const [messages, setMessages] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
@@ -19,13 +21,25 @@ export default function ChatMessages() {
       const pool = new SimplePool()
       const relay = 'wss://cyberspace.nostr1.com'
 
-      const events = await pool.querySync(
+      const chatevents = await pool.querySync(
         [relay],
         {
           kinds: [9],
           limit: 10,
         }
       )
+
+      const arkinoxevents = await pool.querySync(
+        [relay],
+        {
+          authors: [ARKINOX],
+          kinds: [1],
+          "#t": ['cyberspace', 'straylight'],
+          limit: 10,
+        }
+      )
+
+      const events = [...chatevents, ...arkinoxevents]
 
       // Sort by created_at timestamp (oldest first, so newest appears at bottom)
       const sortedEvents = events.sort((a, b) => a.created_at - b.created_at)
@@ -68,15 +82,15 @@ export default function ChatMessages() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 md:gap-3">
+        <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2 md:gap-3 min-w-0">
           <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" />
-          <div className="flex-col">
+          <div className="flex flex-col min-w-0">
             <span className="block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Cyberspace Chatter
             </span>
-            <span className="block text-xs text-gray-500">
+            <span className="block text-xs text-gray-500 break-all">
               from official relay wss://cyberspace.nostr1.com
             </span>
           </div>
@@ -116,7 +130,7 @@ export default function ChatMessages() {
                 >
                   <div className="flex items-start justify-between mb-2 md:mb-3">
                     <span className="text-cyan-400 font-['Monaspace_Krypton'] text-xs md:text-sm font-medium">
-                      {truncateNpub(msg.pubkey)}
+                      {msg.pubkey === ARKINOX ? "arkinox" : truncateNpub(msg.pubkey)}
                     </span>
                     <span className="text-xs text-gray-500">
                       {formatTime(msg.created_at)}
