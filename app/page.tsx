@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Cpu, BookOpen, Zap, Globe, Terminal, Rocket, Bot, Lock, Compass, Sparkles, Satellite } from 'lucide-react'
+import { Cpu, BookOpen, Zap, Globe, Terminal, Rocket, Bot, Lock, Compass, Sparkles, Satellite, Radio } from 'lucide-react'
 import CyberButton from '@/components/CyberButton'
 import ChatMessages from '@/components/ChatMessages'
 import { useState } from 'react'
@@ -61,24 +61,22 @@ pip install -e .`
               <p className="text-lg md:text-xl lg:text-2xl text-gray-400 font-light mb-4">
                 The cyberspace community hub <Satellite className="w-10 h-10 text-gray-400 inline-block ml-2 animate-pulse" />
               </p>
-              {/* Commented out Launch ONOSENDAI button section
-            <div className="flex flex-col sm:flex-row gap-3">
-              <CyberButton
-                href="https://onosendai.tech"
-                variant="primary"
-                size="md"
-                external
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <Radio className="w-4 h-4" />
-                  <span>Launch ONOSENDAI</span>
-                </span>
-              </CyberButton>
-              <p className="text-sm text-gray-400 self-center">
-                Enter the one true metaverse
-              </p>
-            </div>
-            */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <CyberButton
+                  href="https://onosendai.tech"
+                  variant="primary"
+                  size="md"
+                  external
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <Radio className="w-4 h-4" />
+                    <span>Launch ONOSENDAI</span>
+                  </span>
+                </CyberButton>
+                <p className="text-sm text-gray-400 self-center">
+                  Enter cyberspace v2
+                </p>
+              </div>
             </motion.div>
           </div>
         </header>
@@ -168,6 +166,59 @@ pip install -e .`
               </motion.h2>
 
               <div className="flex flex-col gap-6">
+                {/* ONOSENDAI v2 Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                  className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI v2</h3>
+                    <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  </div>
+                  <p className="text-sm md:text-base text-gray-300 mb-4 leading-relaxed">
+                    The cyberspace explorer, rebuilt to protocol v2 in two days. Point-to-point traversal, location-encrypted secrets and shards, real-time spectating, consensual hallucinations across 85 orders of magnitude of scale.
+                  </p>
+                  <ul className="text-sm text-gray-200 mb-6 space-y-1.5">
+                    <li className="flex items-start gap-2">
+                      <span className="text-cyan-400 mt-0.5">▸</span>
+                      <span>Hide messages and 3D shards encrypted by location</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-cyan-400 mt-0.5">▸</span>
+                      <span>Spectate any pubkey or target them in your HUD</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-cyan-400 mt-0.5">▸</span>
+                      <span>Scrub through any movement chain, yours or theirs</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-cyan-400 mt-0.5">▸</span>
+                      <span>Full 3D shard editor, mobile optimized, login with nsec or bunker</span>
+                    </li>
+                  </ul>
+                  <div className="mt-auto flex flex-col sm:flex-row gap-3">
+                    <CyberButton
+                      href="https://onosendai.tech"
+                      variant="secondary"
+                      size="sm"
+                      external
+                    >
+                      Launch ONOSENDAI
+                    </CyberButton>
+                    <CyberButton
+                      href="https://github.com/arkin0x/cyberspace"
+                      variant="accent"
+                      size="sm"
+                      external
+                    >
+                      Read the Spec
+                    </CyberButton>
+                  </div>
+                </motion.div>
+
                 {/* Cyberspace Protocol Card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -338,7 +389,7 @@ pip install -e .`}
             </motion.h2>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {/* ONOSENDAI Card */}
+              {/* ONOSENDAI v1 Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -347,11 +398,11 @@ pip install -e .`}
                 className="group relative border border-cyan-500/30 rounded-lg p-6 md:p-8 bg-black/50 backdrop-blur-sm hover:border-cyan-400/60 transition-all hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] flex flex-col"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI (Hiatus)</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-cyan-400">ONOSENDAI v1 (Retired)</h3>
                   <Cpu className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0" />
                 </div>
                 <p className="text-sm md:text-base text-gray-300 mb-8 flex-grow leading-relaxed">
-                  ONOSENDAI is currently disabled while the cyberspace v2 is being developed and will be rebuilt to the new spec.
+                  The original ONOSENDAI, retired after 58 days of work when cyberspace v2 landed. Its successor, ONOSENDAI v2, was rebuilt to the new spec and now exceeds everything v1 ever did.
                 </p>
                 <div>
                   <CyberButton
