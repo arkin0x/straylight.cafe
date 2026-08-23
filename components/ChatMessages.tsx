@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { SimplePool, Event } from 'nostr-tools'
+import type { Event } from 'nostr-tools'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, RefreshCw } from 'lucide-react'
 import CyberButton from './CyberButton'
+import { CYBERSPACE_RELAY, connectCyberspace, queryCyberspace } from '@/lib/cyberspaceRelay'
 
 const ARKINOX = 'e8ed3798c6ffebffa08501ac39e271662bfd160f688f94c45d692d8767dd345a'
 
@@ -18,26 +19,20 @@ export default function ChatMessages() {
     setError(null)
 
     try {
-      const pool = new SimplePool()
-      const relay = 'wss://cyberspace.nostr1.com'
+      // The relay requires NIP-42 auth before it will serve any REQ.
+      await connectCyberspace()
 
-      const chatevents = await pool.querySync(
-        [relay],
-        {
-          kinds: [9],
-          limit: 10,
-        }
-      )
+      const chatevents = await queryCyberspace({
+        kinds: [9],
+        limit: 10,
+      })
 
-      const arkinoxevents = await pool.querySync(
-        [relay],
-        {
-          authors: [ARKINOX],
-          kinds: [1],
-          "#t": ['cyberspace', 'straylight'],
-          limit: 10,
-        }
-      )
+      const arkinoxevents = await queryCyberspace({
+        authors: [ARKINOX],
+        kinds: [1],
+        "#t": ['cyberspace', 'straylight'],
+        limit: 10,
+      })
 
       const events = [...chatevents, ...arkinoxevents]
 
@@ -91,7 +86,7 @@ export default function ChatMessages() {
               Cyberspace Chatter
             </span>
             <span className="block text-xs text-gray-500 break-all">
-              from official relay wss://cyberspace.nostr1.com
+              from official relay {CYBERSPACE_RELAY}
             </span>
           </div>
         </h2>
