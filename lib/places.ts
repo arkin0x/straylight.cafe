@@ -11,9 +11,12 @@
  * - dataspace under the surface, near Earth (out to past geostationary
  *   orbit), or deep dataspace beyond.
  *
- * A surface cell is only named when at least MIN_VISITORS different avatars
- * moved in it during the window; cells below that are folded together into
- * "elsewhere on Earth". The math is display-only floating point, not the
+ * Any region is only named when at least MIN_PEOPLE different avatars that
+ * are not bots moved in it during the window. Bots never count toward that:
+ * an operator's own agent standing beside them would otherwise name the
+ * operator's region. Earth cells below the threshold are folded into one
+ * unnamed "Elsewhere on Earth" row; any other region below it is left out.
+ * The math is display-only floating point, not the
  * spec's consensus mapping (§9.7), which only matters for agreeing on exact
  * coordinates.
  */
@@ -29,8 +32,8 @@ const SURFACE_BAND_KM = 150
 const NEAR_EARTH_KM = 50000
 /** Degrees per surface cell. */
 const CELL_DEG = 30
-/** The fewest distinct avatars before a surface cell is named. */
-export const MIN_VISITORS = 2
+/** The fewest distinct non-bot avatars before a region is named. */
+export const MIN_PEOPLE = 3
 
 export interface PlaceInput {
   pubkey: string
@@ -93,11 +96,12 @@ export interface PlaceStat {
 }
 
 /**
- * Regions ranked by distinct visitors in the window. Surface cells with fewer
- * than MIN_VISITORS are merged into one "elsewhere on Earth" row, whose
- * visitor count is distinct across the cells it merges.
+ * Regions ranked by distinct visitors in the window, named only when at
+ * least MIN_PEOPLE of those visitors are not bots. Earth cells below that are
+ * merged into one unnamed "Elsewhere on Earth" row (its visitor count is
+ * distinct across the cells it merges); other regions below it are dropped.
  */
-export function popularPlaces(moves: readonly PlaceInput[]): PlaceStat[] {
+export function popularPlaces(moves: readonly PlaceInput[], isBot: (pubkey: string) => boolean): PlaceStat[] {
   const byKey = new Map<string, { region: Region; visitors: Set<string>; moves: number }>()
   for (const m of moves) {
     const region = regionOf(m)
@@ -110,12 +114,13 @@ export function popularPlaces(moves: readonly PlaceInput[]): PlaceStat[] {
   const out: PlaceStat[] = []
   const elsewhere = { visitors: new Set<string>(), moves: 0 }
   for (const row of byKey.values()) {
-    if (row.region.kind === 'surface' && row.visitors.size < MIN_VISITORS) {
+    const people = [...row.visitors].filter((p) => !isBot(p)).length
+    if (people >= MIN_PEOPLE) {
+      out.push({ key: row.region.key, label: row.region.label, kind: row.region.kind, visitors: row.visitors.size, moves: row.moves })
+    } else if (row.region.kind === 'surface') {
       row.visitors.forEach((p) => elsewhere.visitors.add(p))
       elsewhere.moves += row.moves
-      continue
     }
-    out.push({ key: row.region.key, label: row.region.label, kind: row.region.kind, visitors: row.visitors.size, moves: row.moves })
   }
   if (elsewhere.moves > 0) {
     out.push({ key: 'elsewhere', label: 'Elsewhere on Earth', kind: 'elsewhere', visitors: elsewhere.visitors.size, moves: elsewhere.moves })

@@ -9,7 +9,8 @@ import { useCyberspace, useNow, type Snapshot } from '@/lib/useCyberspace'
 import { relayHost, CYBERSPACE_RELAYS } from '@/lib/relays'
 import type { RelayStatus } from '@/lib/relayClient'
 import type { ActiveAvatar, Stats } from '@/lib/world'
-import { MIN_VISITORS } from '@/lib/places'
+import { MIN_PEOPLE } from '@/lib/places'
+import { MIN_STOP_PEOPLE } from '@/lib/world'
 import ShardPreview from './ShardPreview'
 
 const fmt = (n: number): string => n.toLocaleString('en-US')
@@ -59,9 +60,9 @@ function Tile({ id, icon, label, value, unknown, floor, caption, color }: TilePr
       data-value={unknown ? '?' : value ?? ''}
       className="relative border border-white/10 rounded-lg p-4 bg-black/50 backdrop-blur-sm min-w-0 flex flex-col gap-1"
     >
-      <div className={`flex items-center gap-2 text-xs uppercase tracking-wider ${color}`}>
-        {icon}
-        <span className="truncate">{label}</span>
+      <div className={`flex items-start gap-2 text-xs uppercase tracking-wider leading-snug ${color}`}>
+        <span className="shrink-0 mt-px">{icon}</span>
+        <span className="min-w-0 break-words">{label}</span>
       </div>
       <div className="font-['Orbitron'] text-3xl md:text-4xl font-bold text-white tabular-nums">
         {unknown
@@ -153,9 +154,9 @@ function Places({ stats, loading }: { stats: Stats | null; loading: boolean }) {
   const places = stats?.places.slice(0, 6) ?? []
   return (
     <Panel title="Popular places" icon={<MapPin className="w-4 h-4" />}
-      note={<>Regions are 30° cells on Earth or whole spaces beyond it, from moves in the last 7 days. A cell is named only once {MIN_VISITORS} or more avatars moved in it.</>}>
+      note={<>Named only when enough people were there, bots not counted: {MIN_PEOPLE} for a region (a 30° cell on Earth, or a whole space beyond it, last 7 days), {MIN_STOP_PEOPLE} riders for a stop.</>}>
       <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Hyperspace stops</p>
-      {stops.length === 0 ? <Empty loading={loading}>No rides on record yet.</Empty> : (
+      {stops.length === 0 ? <Empty loading={loading}>No stop has {MIN_STOP_PEOPLE} non-bot riders yet.</Empty> : (
         <ul className="mb-4">
           {stops.map((s) => (
             <li key={s.block} data-place={`block:${s.block}`} className="flex items-center justify-between gap-3 py-1.5 text-sm min-w-0">
@@ -173,7 +174,7 @@ function Places({ stats, loading }: { stats: Stats | null; loading: boolean }) {
         </ul>
       )}
       <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Regions, last 7 d</p>
-      {places.length === 0 ? <Empty loading={loading}>No movement in the last 7 days.</Empty> : (
+      {places.length === 0 ? <Empty loading={loading}>No region has {MIN_PEOPLE} non-bot avatars yet.</Empty> : (
         <ul>
           {places.map((p) => (
             <li key={p.key} data-place={p.key} className="flex items-center justify-between gap-3 py-1.5 text-sm min-w-0">

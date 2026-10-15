@@ -49,7 +49,7 @@ export interface Snapshot {
 }
 
 const SHARDS_SHOWN = 12
-const CACHE_KEY = 'straylight:stats:v1'
+const CACHE_KEY = 'straylight:stats:v2'
 const CACHE_MAX_AGE = 30 * 60
 
 const world = emptyWorld()

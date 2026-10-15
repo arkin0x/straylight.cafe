@@ -11,6 +11,22 @@ import type { NostrEvent } from './relayClient'
 import { objectFromEvent, isDeleted, type FeedObject } from 'sno-core/feed'
 import { popularPlaces, type PlaceStat } from './places'
 
+/** The fewest distinct non-bot riders before a hyperspace stop is named. */
+export const MIN_STOP_PEOPLE = 2
+
+/**
+ * Who counts as a bot when deciding whether a place may be named. Wider than
+ * the "Bots active" stat (profile only), on purpose: a pubkey is a bot here if
+ * its profile says `bot: true` OR any of its moves came from cyberspace-mcp,
+ * the agents' server. So an agent whose profile has not loaded yet, or that
+ * never published one, still cannot push a place over its threshold.
+ */
+export function botTest(w: World): (pubkey: string) => boolean {
+  const mcp = new Set<string>()
+  for (const m of w.moves.values()) if (m.client === 'cyberspace-mcp') mcp.add(m.pubkey)
+  return (pubkey) => mcp.has(pubkey) || w.profiles.get(pubkey)?.bot === true
+}
+
 export const KIND_MOVE = 3333
 export const KIND_BAG = 33330
 export const KIND_OBJECT = 33331
@@ -166,6 +182,8 @@ export interface Stop {
   block: number
   riders: number
   rides: number
+  /** Distinct riders that are not bots: at least MIN_STOP_PEOPLE, or the stop is not listed. */
+  people: number
   /** The stop's coordinate (a ride's `C`): public, the same for everyone who rides there. */
   coord?: string
 }
@@ -225,8 +243,12 @@ export function computeStats(w: World, now: number): Stats {
     touch(r.block, r.pubkey, r.coord)
     touch(r.fromBlock, r.pubkey)
   }
+  // A stop one person uses would say where that person goes: name a stop only
+  // once MIN_STOP_PEOPLE distinct non-bot avatars have ridden to or from it.
+  const isBot = botTest(w)
   const stops = [...stopMap.entries()]
-    .map(([block, s]) => ({ block, riders: s.riders.size, rides: s.rides, coord: s.coord }))
+    .map(([block, s]) => ({ block, riders: s.riders.size, people: [...s.riders].filter((p) => !isBot(p)).length, rides: s.rides, coord: s.coord }))
+    .filter((s) => s.people >= MIN_STOP_PEOPLE)
     .sort((a, b) => b.riders - a.riders || b.rides - a.rides || a.block - b.block)
 
   const objects = liveObjects(w)
@@ -248,6 +270,6 @@ export function computeStats(w: World, now: number): Stats {
     rides: rides.length,
     active,
     stops,
-    places: popularPlaces(week7),
+    places: popularPlaces(week7, isBot),
   }
 }

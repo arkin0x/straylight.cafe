@@ -37,7 +37,7 @@ Kinds are from the cyberspace kinds reference (spec, DECK-0001, DECK-0003).
 | Shards published | Distinct public SNO objects (kind 33331 with no `encrypted` tag, `d` not `avatar`, a payload sno-core accepts), minus any their author deleted (NIP-09) | On record, and new in the last 7 d |
 | Blocks explored | Distinct Bitcoin block heights named by rides: the destination `B` and the station `from_height` of every hyperjump | Every ride on record |
 | Recently active | Avatars from the 7 d read, newest move first, with name and picture from kind 0 | Last 7 d |
-| Popular places | Hyperspace stops ranked by distinct riders; regions ranked by distinct avatars (see Privacy) | Stops: every ride on record. Regions: last 7 d |
+| Popular places | Hyperspace stops ranked by distinct riders, and regions ranked by distinct avatars, each named only above a threshold of non-bot avatars (see Privacy) | Stops: every ride on record. Regions: last 7 d |
 | Shard feed | The 12 newest public objects, drawn with sno-core geometry on a small canvas; each opens in snocrash at `/workshop/<naddr>` | Newest |
 
 "On record" means everything the readable relays return within the read limits below. A number shown with ≥ means a read hit its limit, so the true count is at least that. Where a relay supports NIP-45, the page also shows its COUNT of all movement events on record (the largest any relay reports, since counts from different relays cannot be merged).
@@ -56,7 +56,13 @@ Signatures are checked on what the page displays (profiles and public objects). 
 
 ### Privacy
 
-A movement event's sector tags locate an avatar to about 12 cm. The page never shows a coordinate. Moves are reduced to large regions: ideaspace as a whole; on Earth, 30 by 30 degree cells; under the surface; near Earth; deep dataspace. An Earth cell is named only when 2 or more different avatars moved in it during the window; smaller cells are merged into "Elsewhere on Earth". Hyperspace stops are public infrastructure (every rider to a block lands on the same stop), so they are named, with a link to the stop in ONOSENDAI.
+A movement event's sector tags locate an avatar to about 12 cm. The page never shows a coordinate, and it names a place only when enough different people were there that the name cannot point at one of them.
+
+- **Regions.** Moves are reduced to large regions: ideaspace as a whole; on Earth, 30 by 30 degree cells; under the surface; near Earth; deep dataspace. A region is named only when **3 or more distinct non-bot avatars** moved in it during the 7-day window. Earth cells below that are folded into one unnamed "Elsewhere on Earth" row; any other region below it is left out.
+- **Hyperspace stops.** A stop is listed only when **2 or more distinct non-bot avatars** rode to or boarded from it; otherwise it is skipped. Listed stops link to the stop in ONOSENDAI (every rider to a block lands on the same, public stop coordinate).
+- **Bots never count toward a threshold**, so an operator's own agent cannot make the operator's region or stop nameable. For this purpose a pubkey is a bot if its profile says `"bot": true` or any of its moves came from cyberspace-mcp (the agents' server), which catches an agent before its profile loads or when it has none. This is deliberately wider than the "Bots active" stat, which uses the profile flag alone.
+
+Recently active avatars are listed with their last action and when, never where.
 
 ## Development
 
