@@ -13,6 +13,8 @@ const LINKS = {
   snocrash: 'https://snocrash.art/',
   snoSpec: 'https://github.com/arkin0x/cyberspace/blob/master/decks/DECK-0003-sno.md',
   snoSpecRendered: 'https://www.cyberspace.international/spec/sno',
+  ditto: 'https://ditto.pub/',
+  grimoire: 'https://grimoire.rocks/',
   spec: 'https://github.com/arkin0x/cyberspace',
   decks: 'https://github.com/arkin0x/cyberspace/tree/master/decks',
   hyperspace: 'https://github.com/arkin0x/cyberspace/blob/master/decks/DECK-0001-hyperspace.md',
@@ -209,6 +211,14 @@ export default function Home() {
                     </p>
                   </OgCard>
                 </div>
+
+                <Reveal delay={0.2} className="-mt-2 border border-purple-500/30 rounded-lg bg-black/50 backdrop-blur-sm px-4 py-3 md:px-5">
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    <span className="font-bold text-fuchsia-400">Clients that render SNO:</span>{' '}
+                    <a className="text-fuchsia-300 hover:text-fuchsia-200 underline" href={LINKS.ditto} target="_blank" rel="noopener noreferrer">Ditto</a>, whose Blobbi pets keep objects as furniture, and{' '}
+                    <a className="text-fuchsia-300 hover:text-fuchsia-200 underline" href={LINKS.grimoire} target="_blank" rel="noopener noreferrer">Grimoire</a>.
+                  </p>
+                </Reveal>
 
                 <Reveal delay={0.2} className={`${CARD} border-violet-500/30 hover:border-violet-400/60 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]`}>
                   <div className="flex items-center justify-between mb-4">
