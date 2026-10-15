@@ -5,7 +5,7 @@ The community hub for cyberspace: live stats from the cyberspace relays, and the
 ## What is on the page
 
 - **Live from cyberspace**: stats, recently active avatars, popular places and a shard feed, read straight from public nostr relays in the visitor's browser.
-- **Explore**: ONOSENDAI (with its guided tour at onosendai.tech/demo), snocrash, the SNO spec, cyberspace-mcp and cyberspace-cli. ONOSENDAI, snocrash, the SNO spec and cyberspace.international are shown with their own Open Graph cards, copied into `public/og/` (re-encoded as WebP) so they never break.
+- **Explore**: ONOSENDAI (with its guided tour at onosendai.tech/demo), snocrash, the SNO spec, a line naming other clients that render SNO (Ditto and Grimoire), cyberspace-mcp and cyberspace-cli. ONOSENDAI, snocrash, the SNO spec and cyberspace.international are shown with their own Open Graph cards, copied into `public/og/` (re-encoded as WebP) so they never break.
 - **Welcome, the protocol, Learn**: what cyberspace is, the spec and its DECKs, cyberspace.international.
 - **Archive** and **Support Development**.
 
