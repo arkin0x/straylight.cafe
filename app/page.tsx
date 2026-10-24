@@ -10,6 +10,7 @@ import OgCard from '@/components/OgCard'
 const LINKS = {
   onosendai: 'https://onosendai.tech/',
   tour: 'https://onosendai.tech/demo',
+  youtube: 'https://www.youtube.com/watch?v=e7uVFkwxKh8',
   snocrash: 'https://snocrash.art/',
   snoSpec: 'https://github.com/arkin0x/cyberspace/blob/master/decks/DECK-0003-sno.md',
   snoSpecRendered: 'https://www.cyberspace.international/spec/sno',
@@ -192,6 +193,12 @@ export default function Home() {
                   <div className="flex flex-wrap gap-3 mt-1">
                     <CyberButton href={LINKS.onosendai} variant="secondary" size="sm" external>Launch ONOSENDAI</CyberButton>
                     <CyberButton href={LINKS.tour} variant="accent" size="sm" external>Guided tour</CyberButton>
+                    <CyberButton href={LINKS.youtube} variant="primary" size="sm" external>
+                      <span className="flex items-center justify-center gap-2">
+                        <Radio className="w-4 h-4" />
+                        <span>Watch Cyberspace TV live</span>
+                      </span>
+                    </CyberButton>
                   </div>
                 </OgCard>
 
