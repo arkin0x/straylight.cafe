@@ -19,7 +19,7 @@ All of it is computed client-side (`lib/world.ts`, `lib/places.ts`, `lib/useCybe
 |---|---|---|
 | `relay.onosendai.tech` | The dedicated ONOSENDAI relay, required to serve reads without AUTH | Not live yet: shown as unreachable, counted automatically once it opens |
 | `cyberspace.nostr1.com` | ONOSENDAI's canonical relay | Requires NIP-42 AUTH for reads, so it is skipped and the page says so |
-| `wheat.oslim.dev`, `onosendai.feeds.relay.tools` | Carry part of the world and serve reads without AUTH | Read |
+| `wheat.oslim.dev` | Carries part of the world and serves reads without AUTH | Read |
 | `relay.primal.net`, `relay.damus.io`, `nos.lol` | Profiles (kind 0), and public objects snocrash publishes there | Read |
 
 So every number is "on the relays this page can read". Until a relay that carries the whole world serves reads openly, the numbers undercount.
