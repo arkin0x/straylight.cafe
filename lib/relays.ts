@@ -15,15 +15,14 @@
  * - relay.onosendai.tech is the dedicated relay ruled on 2026-10-11, required
  *   to serve reads without AUTH. Until it exists it shows as unreachable; the
  *   day it opens, the stats light up without a redeploy.
- * - wheat.oslim.dev and onosendai.feeds.relay.tools serve reads without AUTH
- *   and carry part of the world (the relays some players and agents publish
- *   to as well). Drop them here once relay.onosendai.tech carries everything.
+ * - wheat.oslim.dev serves reads without AUTH and carries part of the world
+ *   (a relay some players and agents publish to as well). Drop it here once
+ *   relay.onosendai.tech carries everything.
  */
 export const CYBERSPACE_RELAYS: readonly string[] = [
   'wss://relay.onosendai.tech',
   'wss://cyberspace.nostr1.com',
   'wss://wheat.oslim.dev',
-  'wss://onosendai.feeds.relay.tools',
 ]
 
 /**
